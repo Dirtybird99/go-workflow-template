@@ -55,9 +55,16 @@ jobs:
       - name: Check go mod tidy
         run: |
           go mod tidy
-          if ! git diff --quiet go.mod go.sum; then
-            echo "::error::go.mod or go.sum is not tidy. Run 'go mod tidy' and commit."
-            git diff go.mod go.sum
+          # Check go.mod changes
+          if ! git diff --quiet go.mod; then
+            echo "::error::go.mod is not tidy. Run 'go mod tidy' and commit."
+            git diff go.mod
+            exit 1
+          fi
+          # Check go.sum changes (only if file exists)
+          if [ -f go.sum ] && ! git diff --quiet go.sum; then
+            echo "::error::go.sum is not tidy. Run 'go mod tidy' and commit."
+            git diff go.sum
             exit 1
           fi
 
