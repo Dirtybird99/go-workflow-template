@@ -92,16 +92,14 @@ changelog:
       - "typo"
 
 release:
-  github:
-    owner: example
-    name: go-workflow-template
+  # Auto-detect from git remote (no need to specify owner/name)
   draft: false
   prerelease: auto
   mode: append
   header: |
     ## What's Changed in {{ .Tag }}
   footer: |
-    **Full Changelog**: https://github.com/example/go-workflow-template/compare/{{ .PreviousTag }}...{{ .Tag }}
+    **Full Changelog**: {{ .GitURL }}/compare/{{ .PreviousTag }}...{{ .Tag }}
 
 # Optional features below are disabled by default.
 # Uncomment and configure when you have the required infrastructure.
