@@ -103,74 +103,77 @@ release:
   footer: |
     **Full Changelog**: https://github.com/example/go-workflow-template/compare/{{ .PreviousTag }}...{{ .Tag }}
 
-# Optional: Sign artifacts with GPG
-signs:
-  - cmd: gpg
-    args:
-      - "--batch"
-      - "--local-user"
-      - "{{ .Env.GPG_FINGERPRINT }}"
-      - "--output"
-      - "${signature}"
-      - "--detach-sign"
-      - "${artifact}"
-    artifacts: checksum
-    output: true
+# Optional features below are disabled by default.
+# Uncomment and configure when you have the required infrastructure.
 
-# Optional: Docker images
-dockers:
-  - image_templates:
-      - "ghcr.io/example/{{ .ProjectName }}:{{ .Version }}"
-      - "ghcr.io/example/{{ .ProjectName }}:latest"
-    dockerfile: Dockerfile
-    build_flag_templates:
-      - "--pull"
-      - "--label=org.opencontainers.image.created={{.Date}}"
-      - "--label=org.opencontainers.image.title={{.ProjectName}}"
-      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
-      - "--label=org.opencontainers.image.version={{.Version}}"
-      - "--platform=linux/amd64"
+# # Optional: Sign artifacts with GPG
+# signs:
+#   - cmd: gpg
+#     args:
+#       - "--batch"
+#       - "--local-user"
+#       - "{{ .Env.GPG_FINGERPRINT }}"
+#       - "--output"
+#       - "${signature}"
+#       - "--detach-sign"
+#       - "${artifact}"
+#     artifacts: checksum
+#     output: true
 
-# Optional: Homebrew tap
-brews:
-  - repository:
-      owner: example
-      name: homebrew-tap
-    folder: Formula
-    homepage: https://github.com/example/go-workflow-template
-    description: "Go workflow template example app"
-    license: "MIT"
-    test: |
-      system "#{bin}/app", "--version"
-    install: |
-      bin.install "app"
+# # Optional: Docker images (requires Dockerfile)
+# dockers:
+#   - image_templates:
+#       - "ghcr.io/your-org/{{ .ProjectName }}:{{ .Version }}"
+#       - "ghcr.io/your-org/{{ .ProjectName }}:latest"
+#     dockerfile: Dockerfile
+#     build_flag_templates:
+#       - "--pull"
+#       - "--label=org.opencontainers.image.created={{.Date}}"
+#       - "--label=org.opencontainers.image.title={{.ProjectName}}"
+#       - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+#       - "--label=org.opencontainers.image.version={{.Version}}"
+#       - "--platform=linux/amd64"
 
-# Optional: Scoop manifest for Windows
-scoops:
-  - repository:
-      owner: example
-      name: scoop-bucket
-    homepage: https://github.com/example/go-workflow-template
-    description: "Go workflow template example app"
-    license: MIT
+# # Optional: Homebrew tap (requires homebrew-tap repo)
+# brews:
+#   - repository:
+#       owner: your-org
+#       name: homebrew-tap
+#     directory: Formula
+#     homepage: https://github.com/your-org/your-repo
+#     description: "Your project description"
+#     license: "MIT"
+#     test: |
+#       system "#{bin}/your-app", "--version"
+#     install: |
+#       bin.install "your-app"
 
-# Optional: AUR package for Arch Linux
-aurs:
-  - name: app-bin
-    homepage: https://github.com/example/go-workflow-template
-    description: "Go workflow template example app"
-    maintainers:
-      - "Example <example@example.com>"
-    license: MIT
-    private_key: "{{ .Env.AUR_KEY }}"
-    git_url: "ssh://aur@aur.archlinux.org/app-bin.git"
-    package: |-
-      install -Dm755 "./app" "${pkgdir}/usr/bin/app"
-      install -Dm644 "./LICENSE" "${pkgdir}/usr/share/licenses/app/LICENSE"
+# # Optional: Scoop manifest for Windows (requires scoop-bucket repo)
+# scoops:
+#   - repository:
+#       owner: your-org
+#       name: scoop-bucket
+#     homepage: https://github.com/your-org/your-repo
+#     description: "Your project description"
+#     license: MIT
 
-# Announce releases (optional)
-announce:
-  skip: true
-  # discord:
-  #   enabled: true
-  #   message_template: "🎉 {{ .ProjectName }} {{ .Tag }} released! {{ .ReleaseURL }}"
+# # Optional: AUR package for Arch Linux (requires AUR account)
+# aurs:
+#   - name: your-app-bin
+#     homepage: https://github.com/your-org/your-repo
+#     description: "Your project description"
+#     maintainers:
+#       - "Your Name <your@email.com>"
+#     license: MIT
+#     private_key: "{{ .Env.AUR_KEY }}"
+#     git_url: "ssh://aur@aur.archlinux.org/your-app-bin.git"
+#     package: |-
+#       install -Dm755 "./your-app" "${pkgdir}/usr/bin/your-app"
+#       install -Dm644 "./LICENSE" "${pkgdir}/usr/share/licenses/your-app/LICENSE"
+
+# # Announce releases (optional)
+# announce:
+#   skip: true
+#   discord:
+#     enabled: true
+#     message_template: "🎉 {{ .ProjectName }} {{ .Tag }} released! {{ .ReleaseURL }}"
