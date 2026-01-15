@@ -33,7 +33,7 @@ linters:
     - errname       # Check error naming conventions
     - errorlint     # Find error wrapping issues
     - exhaustive    # Check exhaustiveness of enum switch
-    - exportloopref # Check for exported loop variable references
+    - copyloopvar   # Detect loop variable copies (replaces exportloopref)
     - gocognit      # Check cognitive complexity
     - goconst       # Find repeated strings to make constants
     - gocritic      # Opinionated linter
@@ -53,7 +53,7 @@ linters:
     - revive        # Replacement for golint
     - sqlclosecheck # Check SQL rows/statements are closed
     - stylecheck    # Stylecheck
-    - tenv          # Detect using os.Setenv in tests
+    - usetesting    # Detect using os.Setenv in tests (replaces tenv)
     - tparallel     # Detect inappropriate use of t.Parallel()
     - unconvert     # Remove unnecessary type conversions
     - unparam       # Find unused function parameters

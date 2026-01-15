@@ -13,6 +13,11 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+# Permissions for SARIF uploads to GitHub Security
+permissions:
+  contents: read
+  security-events: write
+
 jobs:
   gitleaks:
     name: Gitleaks (Secret Scanning)
